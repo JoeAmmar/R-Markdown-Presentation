@@ -40,7 +40,7 @@ Download/Install MacTeX: http://www.tug.org/mactex/mactex-download.html
 # The first chunk in your document should contain global options. 
 # Global options refer to any formatting/options that you want to remain consistent throughout your document.
 
-knitr::opts_chunk$set(echo = TRUE, fig.showtext = TRUE)
+knitr::opts_chunk$set(echo = FALSE, fig.showtext = TRUE, warning = FALSE, message = FALSE)
 
 # In addition, the first chunk should load all the necesarary packages.
 # The commands below will attempt to load packages. If this fails, it will install them.
@@ -117,7 +117,7 @@ Out of those who completed the survey, `r round(100*sum(rData$status=="Graduate 
 
 
 
-```{r status, echo = FALSE, warning = FALSE}
+```{r status}
 # Let's visualize our data using the r package ggplot2! 
 # ggplot2 is a data visualization package in r that can fulfill the majority of your visualization needs. 
 
@@ -142,7 +142,7 @@ ggplot(rData, aes(x = status)) +
   
   
   
-```{r installSums, echo=FALSE, include = FALSE}
+```{r installSums}
 
 # We assigned objects representing the values of the total installs, the total non-installs,
 # the faculty installs and the student installs.
@@ -179,7 +179,7 @@ Of the total sample (`r nrow(rData)`), `r round(100*(totalInstall/nrow(rData)))`
 \    
 \centering
 
-```{r waffleGraphInstalle, echo = FALSE, warning = FALSE}
+```{r waffleGraph}
 
 # The below code takes the input from the previous chunk and creates a waffle chart.
 
@@ -197,9 +197,6 @@ waffle(installBreakdown, rows = 4,
 
 ```
 
-\raggedright \small
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-\large
 
 
 
@@ -222,7 +219,7 @@ Responses ranged from 1 to 5. The mean score was `r round(mean(as.integer(rData$
 In addition, participants were asked how they felt about learning more about R. They inputed their responses using a smiley face slider. Coded responses ranged from 1 to 5. The mean score was `r round(mean(as.integer(rData$feeling), na.rm = TRUE), 1)`. 
 
 \       
-```{r echo = FALSE, warning = FALSE}
+```{r emojiFigure}
 
 
 
@@ -300,7 +297,7 @@ ggplot(rData, aes(x = feeling, y = confident)) +
 Participants were presented with two open ended items. The first item asked participants to list the benefits and downsides of using R. The wordcloud below shows some of the most frequently occuring words from responses to this item.    
 \           
 
-```{r wordcloud2, echo = FALSE}
+```{r textanal}
 
 # R's default setting is to treat strings as factors when it loads a csv file.
 # Since we did not disable that setting, we need to convert our open response variables to characters
@@ -361,7 +358,7 @@ wordcloud2(FreqMat, size = .6, minSize = .4, color = "random-light", backgroundC
 ### Frequency Table
 
 
-```{r echo = FALSE, warning = FALSE}
+```{r freqtableintext}
 FreqTable <- FreqMat %>%
   arrange(desc(Freq))
 
@@ -370,7 +367,7 @@ FreqTable <- FreqMat %>%
 \       
 The frequency table below shows the most common words in order. The most commonly used word was "`r FreqTable[1,1]`" (`r FreqTable[1,2]` occurences), followed by "`r FreqTable[2,1]`" (`r FreqTable[2,2]` occurences), and "`r FreqTable[3,1]`" (`r FreqTable[3,2]` occurences).
 
-```{r, results = 'asis', echo = FALSE, warning = FALSE}
+```{r freqtablekable, results = 'asis', echo = FALSE, warning = FALSE}
 
 #               PDF VERSION
 kable(head(FreqTable, n = 20), format = "latex", booktabs = T, caption = "Word Frequency: Benefits and Downsides to R") %>%
@@ -394,7 +391,7 @@ The second open ended item asked participants to list barriers to using R. The w
 
 \    
 
-```{r wordcloud, echo = FALSE}
+```{r textanalysis2, echo = FALSE}
 
 # R's default setting is to treat strings as factors when it loads a csv file.
 # Since we did not disable that setting, we need to convert our open response variables to characters
@@ -428,7 +425,7 @@ FreqMat2 <- data.frame(Word = rownames(myTdm2),
 
 \centering
 
-```{r, warning = FALSE, echo = FALSE}
+```{r textanal2}
 
 # Set seed in order to make this wordcloud reproducible
 # The Wordcloud package is reproducible; the Wordcloud2 package might not be
@@ -451,7 +448,7 @@ wordcloud(words = FreqMat2$Word, freq = FreqMat2$Freq, min.freq = 1,
 ## Frequency Table
 
 
-```{r echo = FALSE}
+```{r freqtable2intext, echo = FALSE}
 FreqTable2 <- FreqMat2 %>%
   arrange(desc(Freq))
 
@@ -461,7 +458,7 @@ The frequency table below shows the most common words in order. The most commonl
 
 \       
 
-```{r, results = 'asis', echo = FALSE, fig.align='right'}
+```{r freqtable2kable, results = 'asis', echo = FALSE, fig.align='right'}
 
 #              PDF VERSION
 kable(head(FreqTable2, n = 20), format = "latex", booktabs = T, caption = "Word Frequency: Barriers to using R") %>%
