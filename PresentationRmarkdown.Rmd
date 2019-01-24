@@ -143,7 +143,7 @@ studentInstall <- sum(rData$status == "Graduate Student" & rData$installed == "Y
 # Here we are creating the groups, with their labels inputed in single quotes
 # The value associated with each group is referenced using the objects we initialized earlier
 
-installBreakdown <- c('Faculty Installs' = facultyInstall, 'Student Installs' = studentInstall, 
+installBreakdown <- c('Faculty Installs' = facultyInstall, 'Graduate Student Installs' = studentInstall, 
                       'Not Installed' = totalNotInstall)
 
 ```
@@ -161,7 +161,7 @@ Of the total sample (`r nrow(rData)`), `r round(100*(totalInstall/nrow(rData)))`
 # The below code takes the input from the previous chunk and creates a waffle chart.
 
 waffle(installBreakdown, rows = 4,
-       colors = c("#77cc77", hcl(17,50,80), "grey")) # Note how there are multiple ways to assign colors
+       colors = c("red3", rgb(0,0,205, max=255), "#D0D0D0")) # Note how there are multiple ways to assign colors
 
 
 
