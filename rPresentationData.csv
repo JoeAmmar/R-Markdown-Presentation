@@ -1,0 +1,32 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,status,installed,confident,feeling,bendown,barrprev
+10/3/2017 8:31,10/3/2017 8:32,IP Address,12.178.187.132,100,96,TRUE,10/3/2017 8:32,R_1lzrxdYmDJm9YEg,,,,,41.76530457,-88.3769989,anonymous,EN,Graduate Student,Yes,Somewhat  uncomfortable,4,"Free! Lots of resources online. 
+Can sort of feel esoteric and overwhelming when starting out. ",Not typically included/taught in classes (meta-analysis exception). 
+10/3/2017 8:38,10/3/2017 8:38,IP Address,104.235.107.50,100,28,TRUE,10/3/2017 8:38,R_1QGeGeoqIxIrLxI,,,,,41.89630127,-88.74420166,anonymous,EN,Graduate Student,No,Not at all comfortable,5,,
+10/3/2017 8:49,10/3/2017 8:51,IP Address,131.156.156.22,100,126,TRUE,10/3/2017 8:51,R_1GC9G5RgRfAiAPn,,,,,41.89630127,-88.74420166,anonymous,EN,Faculty,Yes,Neither comfortable nor uncomfortable,5,"I can do things (e.g., multilevel modeling and multiple imputation) without spending a million dollars on other software",lack of familiarity
+10/3/2017 9:09,10/3/2017 9:10,IP Address,99.37.177.37,100,61,TRUE,10/3/2017 9:10,R_24q4X4FTefoXl6e,,,,,41.93519592,-88.29090118,anonymous,EN,Faculty,Yes,Not at all comfortable,5,"Benefits:  More control, more powerful, Free
+
+Downsides: Harder to learn and to teach to people who are not as stats confident",Learning curve
+10/3/2017 9:10,10/3/2017 9:11,IP Address,131.156.156.23,100,49,TRUE,10/3/2017 9:11,R_sFru7wvEfQXZ2Kt,,,,,41.89630127,-88.74420166,anonymous,EN,Graduate Student,No,Not at all comfortable,4,N/A,Researchers have been trained on other systems more likely so it is increasingly harder to get researchers to switch off what they already know and learn another new system.
+10/3/2017 9:07,10/3/2017 9:12,IP Address,131.156.156.22,100,352,TRUE,10/3/2017 9:12,R_3D0js0sCPH3JLxU,,,,,41.89630127,-88.74420166,anonymous,EN,Faculty,Yes,Very comfortable,5,"R is free
+As our research workflows become more ""open"", it is important that people use tools that are common. R is the lingua franca for stats in social science research. ","There is a steep learning curve. 
+Lack of programming skills.
+It is not taught in many classes/programs. "
+10/3/2017 9:23,10/3/2017 9:25,IP Address,98.226.251.122,100,124,TRUE,10/3/2017 9:25,R_1oiOw1eiUR8IPev,,,,,41.87319946,-88.00019836,anonymous,EN,Graduate Student,No,Not at all comfortable,4,"I've heard it is very flexible, lots of resources online, open source. No idea about downsides. ","I think the biggest barrier is change, people trying something new, moving away from something they are use to (at least it is for me). "
+10/3/2017 12:11,10/3/2017 12:12,IP Address,131.156.156.21,100,59,TRUE,10/3/2017 12:12,R_rdmQPup1pvxzOrD,,,,,41.89630127,-88.74420166,anonymous,EN,Graduate Student,No,Not at all comfortable,4,It does not seem very user friendly; it is difficult to learn even how to open data in that platform,Takes a while to learn; hard to know where to start
+10/3/2017 13:36,10/3/2017 13:38,IP Address,131.156.156.22,100,145,TRUE,10/3/2017 13:38,R_3Lbtzc7wQSOLrrY,,,,,41.89630127,-88.74420166,anonymous,EN,Graduate Student,Yes,Very comfortable,5,#NAME?,"Learning curve
+Status quo is easy"
+10/3/2017 20:01,10/3/2017 20:04,IP Address,73.8.184.51,100,143,TRUE,10/3/2017 20:04,R_PLoxRumXpWEjhjb,,,,,41.89630127,-88.74420166,anonymous,EN,Faculty,Yes,Somewhat  uncomfortable,5,"Free, lots of options for analyses that cost more money in SPSS (multiple imputation) and better data visualizations","Devoting time to learning new package/switching up software, good recommendations for accessible textbooks/materials"
+10/4/2017 9:47,10/4/2017 9:50,IP Address,131.156.156.21,100,199,TRUE,10/4/2017 9:50,R_3HFZmiNRo5XGWai,,,,,41.89630127,-88.74420166,anonymous,EN,Graduate Student,No,Not at all comfortable,4,I have had little exposure to R.  It seems as if it would be a great statistical software package.  The few times I have tried to use it were unsuccessful; I could not get any of the functions to run.,"The hurdle of intimately learning how to use it.  Also, few others use it which makes it difficult to integrate into teaching/ lab work."
+10/4/2017 10:16,10/4/2017 10:22,IP Address,98.206.16.70,100,359,TRUE,10/4/2017 10:22,R_1gLXAHNJcCHis4R,,,,,42.01060486,-88.667099,anonymous,EN,Faculty,Yes,Somewhat comfortable,5,"Benefits: Freely available. Can connect with package developers.
+
+Downside: Packages vary in expected input",People hate change. Hard to justify spending time to learn a new way to do something that has already been routinized from past experience with SPSS and other software.
+10/4/2017 11:00,10/4/2017 11:07,IP Address,73.8.186.23,100,471,TRUE,10/4/2017 11:07,R_1gcGUnOhzhHYzbJ,,,,,41.89630127,-88.74420166,anonymous,EN,Graduate Student,Yes,Somewhat  uncomfortable,5,"Benefits: Free, ""Flexible"", can use Fuzzy for good data visualization, open source. Not sure of the downsides.","Time constraints. In other words, needing to take the time to learn a new platform. If you have to run a fast analysis its easy to just turn to what you already know."
+10/4/2017 18:38,10/4/2017 19:01,IP Address,73.208.30.252,100,1350,TRUE,10/4/2017 19:16,R_1KkyRh5C6Z90SPB,,,,,42.01060486,-88.667099,anonymous,EN,Graduate Student,Yes,Somewhat  uncomfortable,4,"Benefits: 
+-free 
+-easily adaptable for nuanced analyses ","-new coding language to learn 
+-isn't widely used at this point "
+10/5/2017 17:09,10/5/2017 17:17,IP Address,131.156.159.224,100,492,TRUE,10/5/2017 17:17,R_31GDubCGS9JcQUI,,,,,41.89630127,-88.74420166,anonymous,EN,Graduate Student,Yes,Somewhat comfortable,5,"Versatility is a benefit. What some software packages lack, in terms of what analyses they can do and output and graphical displays are available, there almost always seems to be R script available for. Essentially, everything can be done in R, as opposed to moving around across SPSS, SAS, AMOS, etc.
+
+Almost no disadvantages to using R other than the learning curve.","Th learning curve given that SPSS has essentially been ingrained in us since undergrad, time restraints as a grad student, and SPSS seems quicker and easier for basic analyses--regressions,different type of ANOVA. 
+
+Programming language is kind of an initial turn off; although, it does get easier with practice. "
