@@ -1,0 +1,478 @@
+---
+output:
+  pdf_document:
+    toc: yes
+  html_document: default
+  always_allow_html: yes
+  word_document: default
+---
+
+
+<!--                                              INSTRUCTIONS
+
+BEFORE YOU BEGIN
+
+WINDOWS USER INSTRUCTIONS 
+Download/Install Latest version of R: https://cloud.r-project.org/bin/windows/base/R-3.4.2-win.exe
+Download/Install Latest version of RStudio: https://download1.rstudio.org/RStudio-1.1.383.exe
+Install MikTex: https://miktex.org/download/ctan/systems/win32/miktex/setup/basic-miktex-2.9.6361-x64.exe
+
+MAC USER INSTRUCTIONS
+Download/Install Latest version of R: https://cloud.r-project.org/bin/macosx/R-3.4.2.pkg
+Download/Install Latest version of RStudio: https://download1.rstudio.org/RStudio-1.1.383.dmg
+Download/Install XQuartz: https://dl.bintray.com/xquartz/downloads/XQuartz-2.7.11.dmg
+Download/Install MacTeX: http://www.tug.org/mactex/mactex-download.html
+
+-->
+
+
+
+
+
+
+
+\newpage  
+
+
+
+```{r setup, include = FALSE}
+
+# The first chunk in your document should contain global options. 
+# Global options refer to any formatting/options that you want to remain consistent throughout your document.
+
+knitr::opts_chunk$set(echo = TRUE, fig.showtext = TRUE)
+
+# In addition, the first chunk should load all the necesarary packages.
+# The commands below will attempt to load packages. If this fails, it will install them.
+if(require(devtools) != TRUE){install.packages("devtools")}
+if(require(emojifont) != TRUE){install_github("GuangchuangYu/emojifont")}
+if(require(wordcloud2) != TRUE){install_github("lchiffon/wordcloud2")}
+if(require(install.load) != TRUE){install.packages("install.load")}
+if(require(osfr) != TRUE){devtools::install_github("chartgerink/osfr")}
+
+# The process of attempting to loading/installing packages is automated in the install.load package
+# We will load/install the rest of our packages using the install_load command
+
+install_load("devtools", "SnowballC", "tm", "wordcloud2", "wordcloud", 
+             "magrittr", "slam", "dplyr", "ggplot2", "extrafont",
+             "extrafontdb", "waffle", "downloader", "knitr", "kableExtra",
+             "osfr", "emojifont", "webshot", "rticles", "pinp")
+
+# This section includes additional fonts to R to allow for more interesting figures. 
+# You may need to also manually download Font Awesome manually: http://fontawesome.io/assets/font-awesome-4.7.0.zip
+# If you choose to do so, be sure to unzip the downloaded file, open it, and install the font.
+# Restart R after doing this.
+
+webshot::install_phantomjs()
+
+font_awesome <- tempfile(fileext = ".ttf")
+fileUrl <- "https://github.com/rstudio/bookdown/blob/master/inst/resources/gitbook/css/fontawesome/fontawesome-webfont.ttf?raw=true"
+download(fileUrl, font_awesome, mode = "wb")
+
+font_import(paths = dirname(font_awesome), prompt = FALSE)
+extrafont::loadfonts()
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r loadDatafile, include = FALSE}
+# Let's load our .csv datafile and assign it to the object "rData"
+osf <- osfr::download_file(id = 'xfrt9')
+rData <- read.csv(osf)
+```
+
+<!-- This is the area where the document text goes -->
+<!-- Use the # symbol before text to create headers -->
+# Feelings about Using R
+
+\large
+This document will summarize the results of a 690 survey using cool figures and RMarkdown. This should be **fun**!   
+
+
+## Demographics    
+Out of those who completed the survey, `r round(100*sum(rData$status=="Graduate Student")/nrow(rData))`\% were Graduate students and `r round(100*sum(rData$status=="Faculty")/nrow(rData))`\% were faculty members. In addition, `r round(100*sum(rData$status=="")/nrow(rData))`% did not report their status.
+ 
+ <!-- The '\' symbol followed by four spaces can be used for whitespace if needed.
+        It may be useful if we want more room between the main text and the figure  -->
+
+
+\      
+
+
+
+
+
+
+
+
+
+
+```{r status, echo = FALSE, warning = FALSE}
+# Let's visualize our data using the r package ggplot2! 
+# ggplot2 is a data visualization package in r that can fulfill the majority of your visualization needs. 
+
+ggplot(rData, aes(x = status)) +
+  geom_histogram(stat = "count", aes(fill = status)) +
+  labs(x = "Professional Status", y = "Frequency") +
+    theme_minimal() 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+<!-- Breakdown of R Installations across students and faculty -->
+  
+  
+  
+```{r installSums, echo=FALSE, include = FALSE}
+
+# We assigned objects representing the values of the total installs, the total non-installs,
+# the faculty installs and the student installs.
+
+totalInstall <- sum(rData$installed == "Yes")
+totalNotInstall <- sum(rData$installed == "No")
+facultyInstall <- sum(rData$status == "Faculty" & rData$installed == "Yes")
+studentInstall <- sum(rData$status == "Graduate Student" & rData$installed == "Yes")
+
+# The following code is specific to the waffles package. 
+# Here we are creating the groups, with their labels inputed in single quotes
+# The value associated with each group is referenced using the objects we initialized earlier
+
+installBreakdown <- c('Faculty Installs' = facultyInstall, 'Student Installs' = studentInstall, 
+                      'Not Installed' = totalNotInstall)
+
+```
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+## Including Plots
+
+Of the total sample (`r nrow(rData)`), `r round(100*(totalInstall/nrow(rData)))`% reported having R installed on their computer. Specifically, `r facultyInstall` faculty members and `r studentInstall` graduate students have R installed. Only `r totalNotInstall` respondents have not yet installed R. 
+
+\    
+\centering
+
+```{r waffleGraphInstalle, echo = FALSE, warning = FALSE}
+
+# The below code takes the input from the previous chunk and creates a waffle chart.
+
+waffle(installBreakdown, rows = 4,
+       colors = c("#77cc77", hcl(17,50,80), "grey")) # Note how there are multiple ways to assign colors
+
+
+
+# The below code will show in the Plots pane. It might work for html output as well, but not for pdf output
+
+
+  # waffle(installBreakdown, rows = 3,
+  #      colors = c("#77cc77", hcl(17,50,80), "grey"),
+  #     use_glyph = "download", glyph_size = 20)
+
+```
+
+\raggedright \small
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+\large
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+# Feelings about using R and Learning More about it
+
+Participants were asked about how comfortable they were using R (Not at all Comfortable - Very Comfortable).
+Responses ranged from 1 to 5. The mean score was `r round(mean(as.integer(rData$confident), na.rm = TRUE), 1)`.    
+\       
+In addition, participants were asked how they felt about learning more about R. They inputed their responses using a smiley face slider. Coded responses ranged from 1 to 5. The mean score was `r round(mean(as.integer(rData$feeling), na.rm = TRUE), 1)`. 
+
+\       
+```{r echo = FALSE, warning = FALSE}
+
+
+
+#Loading emoji font
+
+load.emojifont('OpenSansEmoji.ttf')
+
+# setting font of the x-axis
+emoji_text_element=element_text(family="OpenSansEmoji", size=20)
+
+rData$statusLetter <- ifelse(rData$status == "Graduate Student", "G", "F")
+# Plotting
+ggplot(rData, aes(x = feeling, y = confident)) +
+  geom_jitter(aes(shape = statusLetter,
+                  color = statusLetter),
+              width = .1,
+              height = .1,
+              size = 2) +
+  scale_shape_identity() +
+  coord_cartesian(xlim=c(1,5)) +
+  # labels for x-axis and y-axis
+  labs(x = "Feelings about Learning More R", y = "Current Comfort Level with R") +
+  # Y-axis configuration
+  scale_y_discrete(limits = c("Not at all comfortable",
+                              "Somewhat uncomfortable",
+                              "Neither comfortable nor uncomfortable",
+                              "Somewhat comfortable",
+                              "Very comfortable"),
+                   labels = c("Not at all \nComfortable",
+                              "Somewhat \nUncomfortable",
+                              "Neither Comfortable \nNor Uncomfortable",
+                              "Somewhat \nComfortable",
+                              "Very \nComfortable")) +
+  # X-axis configuration
+  scale_x_discrete(limits = c(1,2,3,4,5),
+                   labels = c(emoji('cry'),
+                              emoji('confused'),
+                              emoji('expressionless'),
+                              emoji('smiley'),
+                              emoji('smile'))) +
+  # Configuring the legend
+  scale_colour_manual(name = "Status",
+                      labels = c("Faculty", "Graduate Students"),
+                      values = c("red3", "blue3")) +   
+  scale_shape_manual(name = "Status",
+                     labels = c("Faculty", "Graduate Students"),
+                     values = c("F", "G")) +
+  theme_classic() +
+  theme(axis.text.x = emoji_text_element) # assigning emoji text for x-axis
+  
+                   
+                  
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+# Open Ended Items
+## Benefits/Downsides to R
+
+Participants were presented with two open ended items. The first item asked participants to list the benefits and downsides of using R. The wordcloud below shows some of the most frequently occuring words from responses to this item.    
+\           
+
+```{r wordcloud2, echo = FALSE}
+
+# R's default setting is to treat strings as factors when it loads a csv file.
+# Since we did not disable that setting, we need to convert our open response variables to characters
+
+ rData$bendown <- as.character(rData$bendown)
+
+
+# Here we convert the structure of our data into a corpus to be able to analyze text in the tm package
+
+wordsCorpus <- Corpus(VectorSource(rData$bendown))
+
+
+# In this section, we'll remove punction marks, make all text lower case, and remove commonly used words ('stopwords').
+
+wordsCorpus <- tm_map(wordsCorpus, removePunctuation)
+wordsCorpus <- tm_map(wordsCorpus, tolower)
+wordsCorpus <- tm_map(wordsCorpus, removeWords, c("downsides", "benefits", "importidqid7text"))
+wordsCorpus <- tm_map(wordsCorpus, removeWords, stopwords('english'))
+
+
+
+# Converting the corpus to a matrix  
+myTdm <- as.matrix(TermDocumentMatrix(wordsCorpus))
+
+#Creating dataframe with words and their frequencies of use 
+FreqMat <- data.frame(Word = rownames(myTdm), 
+                      Freq = rowSums(myTdm), 
+                      row.names = NULL)
+
+
+
+
+# Word Cloud Section
+
+
+                    # Interactive example (better for html output)
+wordcloud2(FreqMat, size = .6, minSize = .4, color = "random-light", backgroundColor = "grey") 
+
+                    # PDF example (Forming the letter 'R')
+
+#letterCloud(FreqMat, word = "R", size = .2)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+
+### Frequency Table
+
+
+```{r echo = FALSE, warning = FALSE}
+FreqTable <- FreqMat %>%
+  arrange(desc(Freq))
+
+```
+
+\       
+The frequency table below shows the most common words in order. The most commonly used word was "`r FreqTable[1,1]`" (`r FreqTable[1,2]` occurences), followed by "`r FreqTable[2,1]`" (`r FreqTable[2,2]` occurences), and "`r FreqTable[3,1]`" (`r FreqTable[3,2]` occurences).
+
+```{r, results = 'asis', echo = FALSE, warning = FALSE}
+
+#               PDF VERSION
+kable(head(FreqTable, n = 20), format = "latex", booktabs = T, caption = "Word Frequency: Benefits and Downsides to R") %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                font_size = 13,
+                full_width = T)
+
+#               HTML VERSION
+# kable(head(FreqTable, n = 20), format = "html", booktabs = T, caption = "Word Frequency: Benefits and Downsides to R") %>%
+#   kable_styling(latex_options = c("striped", "hold_position"),
+#                 font_size = 13,
+#                 full_width = T)
+
+```
+
+\newpage
+
+
+## Barriers to Using R
+The second open ended item asked participants to list barriers to using R. The wordcloud below shows some of the most frequently occuring words from responses to this item.     
+
+\    
+
+```{r wordcloud, echo = FALSE}
+
+# R's default setting is to treat strings as factors when it loads a csv file.
+# Since we did not disable that setting, we need to convert our open response variables to characters
+
+ rData$barrprev <- as.character(rData$barrprev)
+
+# Here we convert the structure of our data into a corpus to be able to analyze text in the tm package
+
+wordsCorpus2 <- Corpus(VectorSource(rData$barrprev))
+
+
+# In this section, we'll remove punction marks, make all text lower case, and remove commonly used words ('stopwords').
+
+wordsCorpus2 <- tm_map(wordsCorpus2, removePunctuation)
+wordsCorpus2 <- tm_map(wordsCorpus2, tolower)
+wordsCorpus2 <- tm_map(wordsCorpus2, removeWords, stopwords('english'))
+wordsCorpus2 <- tm_map(wordsCorpus2, removeWords, c("downsides", "benefits"))
+
+
+# Converting the corpus to a matrix 
+
+myTdm2 <- as.matrix(TermDocumentMatrix(wordsCorpus2))
+
+#Creating dataframe with words and their frequencies of use 
+
+FreqMat2 <- data.frame(Word = rownames(myTdm2), 
+                      Freq = rowSums(myTdm2), 
+                      row.names = NULL)
+
+```
+
+\centering
+
+```{r, warning = FALSE, echo = FALSE}
+
+# Set seed in order to make this wordcloud reproducible
+# The Wordcloud package is reproducible; the Wordcloud2 package might not be
+
+set.seed(4363)
+wordcloud(words = FreqMat2$Word, freq = FreqMat2$Freq, min.freq = 1,
+           random.order=FALSE,  
+          colors=brewer.pal(4, "Purples"),
+          max.words = 60)
+
+
+
+
+```
+
+\raggedright
+
+\newpage
+
+## Frequency Table
+
+
+```{r echo = FALSE}
+FreqTable2 <- FreqMat2 %>%
+  arrange(desc(Freq))
+
+```
+
+The frequency table below shows the most common words in order. The most commonly used word was "`r FreqTable2[1,1]`" (`r FreqTable2[1,2]` occurences), followed by "`r FreqTable2[2,1]`" (`r FreqTable2[2,2]` occurences), and "`r FreqTable2[3,1]`" (`r FreqTable2[3,2]` occurences).
+
+\       
+
+```{r, results = 'asis', echo = FALSE, fig.align='right'}
+
+#              PDF VERSION
+kable(head(FreqTable2, n = 20), format = "latex", booktabs = T, caption = "Word Frequency: Barriers to using R") %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                font_size = 13,
+                full_width = T)
+
+#               HTML VERSION
+# kable(head(FreqTable2, n = 20), format = "html", booktabs = T, caption = "Word Frequency: Barriers to using R") %>%
+#   kable_styling(latex_options = c("striped", "hold_position"),
+#                 font_size = 13,
+#                 full_width = T)
+
+```
