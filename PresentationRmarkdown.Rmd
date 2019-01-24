@@ -40,7 +40,7 @@ Download/Install MacTeX: http://www.tug.org/mactex/mactex-download.html
 # The first chunk in your document should contain global options. 
 # Global options refer to any formatting/options that you want to remain consistent throughout your document.
 
-knitr::opts_chunk$set(echo = FALSE, fig.showtext = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, fig.showtext = TRUE, warning = FALSE, message = FALSE, fig.align="center")
 
 # In addition, the first chunk should load all the necesarary packages.
 # The commands below will attempt to load packages. If this fails, it will install them.
@@ -109,32 +109,19 @@ Out of those who completed the survey, `r round(100*sum(rData$status=="Graduate 
 \      
 
 
-
-
-
-
-
-
-
-
-```{r status}
+```{r statusfigure, fig.align="right"}
 # Let's visualize our data using the r package ggplot2! 
 # ggplot2 is a data visualization package in r that can fulfill the majority of your visualization needs. 
 
 ggplot(rData, aes(x = status)) +
   geom_histogram(stat = "count", aes(fill = status)) +
   labs(x = "Professional Status", y = "Frequency") +
+    scale_fill_manual(name = "Status",
+                      labels = c("Faculty", "Graduate Students"),
+                      values = c("red3", "blue3")) + 
     theme_minimal() 
 
 ```
-
-
-
-
-
-
-
-
 
 
 
@@ -162,14 +149,6 @@ installBreakdown <- c('Faculty Installs' = facultyInstall, 'Student Installs' = 
 ```
 
 
-
-
-
-
-
-
-
-
 \newpage
 
 ## Including Plots
@@ -177,8 +156,6 @@ installBreakdown <- c('Faculty Installs' = facultyInstall, 'Student Installs' = 
 Of the total sample (`r nrow(rData)`), `r round(100*(totalInstall/nrow(rData)))`% reported having R installed on their computer. Specifically, `r facultyInstall` faculty members and `r studentInstall` graduate students have R installed. Only `r totalNotInstall` respondents have not yet installed R. 
 
 \    
-\centering
-
 ```{r waffleGraph}
 
 # The below code takes the input from the previous chunk and creates a waffle chart.
@@ -196,14 +173,6 @@ waffle(installBreakdown, rows = 4,
   #     use_glyph = "download", glyph_size = 20)
 
 ```
-
-
-
-
-
-
-
-
 
 
 
@@ -279,16 +248,6 @@ ggplot(rData, aes(x = feeling, y = confident)) +
 
 
 
-
-
-
-
-
-
-
-
-
-
 \newpage
 
 # Open Ended Items
@@ -342,14 +301,6 @@ wordcloud2(FreqMat, size = .6, minSize = .4, color = "random-light", backgroundC
 
 
 ```
-
-
-
-
-
-
-
-
 
 
 
@@ -423,7 +374,6 @@ FreqMat2 <- data.frame(Word = rownames(myTdm2),
 
 ```
 
-\centering
 
 ```{r textanal2}
 
@@ -441,7 +391,6 @@ wordcloud(words = FreqMat2$Word, freq = FreqMat2$Freq, min.freq = 1,
 
 ```
 
-\raggedright
 
 \newpage
 
@@ -458,7 +407,7 @@ The frequency table below shows the most common words in order. The most commonl
 
 \       
 
-```{r freqtable2kable, results = 'asis', echo = FALSE, fig.align='right'}
+```{r freqtable2kable, results = 'asis'}
 
 #              PDF VERSION
 kable(head(FreqTable2, n = 20), format = "latex", booktabs = T, caption = "Word Frequency: Barriers to using R") %>%
